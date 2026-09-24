@@ -1,0 +1,114 @@
+import pandas as pd
+import numpy as np
+
+# Product data
+data = {
+    "Product": [
+        "Laptop",
+        "Mouse",
+        "Keyboard",
+        "Monitor",
+        "Headphones",
+        "Laptop",
+        "Mouse"
+    ],
+
+    "Category": [
+        "Electronics",
+        "Accessories",
+        "Accessories",
+        "Electronics",
+        "Accessories",
+        "Electronics",
+        "Accessories"
+    ],
+
+    "Price": [
+        55000,
+        800,
+        1500,
+        12000,
+        2500,
+        60000,
+        900
+    ],
+
+    "Quantity": [
+        2,
+        10,
+        5,
+        3,
+        8,
+        1,
+        7
+    ]
+}
+
+# DataFrame
+df = pd.DataFrame(data)
+
+print("===== E-COMMERCE DATA =====")
+print(df)
+
+
+# Total amount for each product
+df["Total_Amount"] = df["Price"] * df["Quantity"]
+
+print("\n===== SALES WITH TOTAL AMOUNT =====")
+print(df)
+
+
+# Total revenue
+total_revenue = np.sum(df["Total_Amount"])
+
+print("\nTotal Revenue:", total_revenue)
+
+
+# Average order value
+average_order = np.mean(df["Total_Amount"])
+
+print("Average Order Value:", round(average_order, 2))
+
+
+# Highest selling amount
+highest_sale = np.max(df["Total_Amount"])
+
+print("Highest Sale:", highest_sale)
+
+
+# Product with highest sale
+best_product = df.loc[df["Total_Amount"].idxmax()]
+
+print("\n===== HIGHEST SALE PRODUCT =====")
+print("Product:", best_product["Product"])
+print("Amount:", best_product["Total_Amount"])
+
+
+# Products having quantity greater than 5
+high_quantity = df[df["Quantity"] > 5]
+
+print("\n===== HIGH QUANTITY PRODUCTS =====")
+print(high_quantity)
+
+
+# Sort according to total amount
+ranking = df.sort_values(
+    by="Total_Amount",
+    ascending=False
+)
+
+print("\n===== SALES RANKING =====")
+print(ranking[["Product", "Total_Amount"]])
+
+
+# Category-wise average price
+category_average = df.groupby("Category")["Price"].mean()
+
+print("\n===== CATEGORY WISE AVERAGE PRICE =====")
+print(category_average)
+
+
+# Save report
+df.to_csv("ecommerce_report.csv", index=False)
+
+print("\nReport saved successfully!")
