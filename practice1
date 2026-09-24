@@ -1,0 +1,43 @@
+import pandas as pd
+import numpy as np
+
+# Sales data
+data = {
+    "Product": ["Laptop", "Phone", "Tablet", "Laptop", "Phone"],
+    "Price": [50000, 25000, 18000, 55000, 28000],
+    "Quantity": [2, 3, 4, 1, 2]
+}
+
+# DataFrame create karo
+df = pd.DataFrame(data)
+
+print("===== SALES DATA =====")
+print(df)
+
+# Total sale calculate karo
+df["Total_Sale"] = df["Price"] * df["Quantity"]
+
+print("\n===== TOTAL SALES =====")
+print(df)
+
+# NumPy se total sales
+total_sales = np.sum(df["Total_Sale"])
+
+print("\nTotal Sales:", total_sales)
+
+# Average sale
+average_sale = np.mean(df["Total_Sale"])
+
+print("Average Sale:", average_sale)
+
+# Highest sale
+highest_sale = np.max(df["Total_Sale"])
+
+print("Highest Sale:", highest_sale)
+
+# Sabse expensive product
+expensive_product = df.loc[df["Price"].idxmax()]
+
+print("\n===== MOST EXPENSIVE PRODUCT =====")
+print(expensive_product["Product"])
+print("Price:", expensive_product["Price"])
