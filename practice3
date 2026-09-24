@@ -1,0 +1,95 @@
+import pandas as pd
+import numpy as np
+
+# Expense data
+data = {
+    "Person": ["Aman", "Riya", "Aman", "Neha", "Riya", "Neha", "Aman"],
+    "Category": [
+        "Food",
+        "Travel",
+        "Shopping",
+        "Food",
+        "Shopping",
+        "Travel",
+        "Travel"
+    ],
+    "Amount": [
+        250,
+        500,
+        1200,
+        300,
+        1500,
+        700,
+        450
+    ]
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+print("===== EXPENSE DATA =====")
+print(df)
+
+
+# Total expense
+total_expense = np.sum(df["Amount"])
+
+print("\nTotal Expense:", total_expense)
+
+
+# Average expense
+average_expense = np.mean(df["Amount"])
+
+print("Average Expense:", round(average_expense, 2))
+
+
+# Highest expense
+highest_expense = np.max(df["Amount"])
+
+print("Highest Expense:", highest_expense)
+
+
+# Person who made highest expense
+highest = df.loc[df["Amount"].idxmax()]
+
+print("\n===== HIGHEST EXPENSE =====")
+print("Person:", highest["Person"])
+print("Category:", highest["Category"])
+print("Amount:", highest["Amount"])
+
+
+# Expenses greater than 500
+large_expenses = df[df["Amount"] > 500]
+
+print("\n===== EXPENSES ABOVE 500 =====")
+print(large_expenses)
+
+
+# Category-wise total expense
+category_total = df.groupby("Category")["Amount"].sum()
+
+print("\n===== CATEGORY WISE EXPENSE =====")
+print(category_total)
+
+
+# Person-wise total expense
+person_total = df.groupby("Person")["Amount"].sum()
+
+print("\n===== PERSON WISE EXPENSE =====")
+print(person_total)
+
+
+# Sort expenses from highest to lowest
+sorted_expenses = df.sort_values(
+    by="Amount",
+    ascending=False
+)
+
+print("\n===== EXPENSE RANKING =====")
+print(sorted_expenses)
+
+
+# Save report
+df.to_csv("expense_report.csv", index=False)
+
+print("\nExpense report saved successfully!")
